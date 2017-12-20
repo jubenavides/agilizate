@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -49,14 +50,13 @@ public class ActividadDia implements Serializable {
     @ManyToOne(optional = false)
     private Ejercicio ejercicio;
        
-    @JoinColumn(name="COD_PROGRAMA",referencedColumnName="COD_PROGRAMA",nullable=false,insertable=false,updatable=false)
-    @ManyToOne(optional = false)
-    private ProgramaCliente programaCliente;
+    @JoinColumns({
+        @JoinColumn(name="COD_PROGRAMA",referencedColumnName="COD_PROGRAMA",nullable=false,insertable=false,updatable=false),
+        @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)})
+    @ManyToOne 
     
-    @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)
-    @ManyToOne(optional = false)
-    private Cliente cliente;
-       
+    private ProgramaCliente programaCliente;
+      
     public ActividadDia() {
     }
 
@@ -116,14 +116,6 @@ public class ActividadDia implements Serializable {
         this.programaCliente = programaCliente;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -146,7 +138,7 @@ public class ActividadDia implements Serializable {
 
     @Override
     public String toString() {
-        return "ActividadDia{" + "actividadDiaPK=" + actividadDiaPK + ", fecha=" + fecha + ", duracion=" + duracion + ", cumplido=" + cumplido + ", ejercicio=" + ejercicio + ", programaCliente=" + programaCliente + ", cliente=" + cliente + '}';
+        return "ActividadDia{" + "actividadDiaPK=" + actividadDiaPK + ", fecha=" + fecha + ", duracion=" + duracion + ", cumplido=" + cumplido + ", ejercicio=" + ejercicio + ", programaCliente=" + programaCliente + '}';
     }
     
 }
