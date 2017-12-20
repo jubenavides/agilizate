@@ -7,11 +7,14 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CumplidoActividadEnum;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -38,8 +41,9 @@ public class ActividadDia implements Serializable {
     @Column(name = "DURACION",nullable=false)
     private short duracion;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "CUMPLIDO",nullable=false,length=2)
-    private String cumplido;
+    private CumplidoActividadEnum cumplido;
 
     @JoinColumn(name="COD_EJERCICIO",referencedColumnName="COD_EJERCICIO",nullable=false,insertable=false,updatable=false)
     @ManyToOne(optional = false)
@@ -58,13 +62,6 @@ public class ActividadDia implements Serializable {
 
     public ActividadDia(ActividadDiaPK actividadDiaPK) {
         this.actividadDiaPK = actividadDiaPK;
-    }
-
-    public ActividadDia(ActividadDiaPK actividadDiaPK, Date fecha, short duracion, String cumplido) {
-        this.actividadDiaPK = actividadDiaPK;
-        this.fecha = fecha;
-        this.duracion = duracion;
-        this.cumplido = cumplido;
     }
 
     public ActividadDia(int codDia, int codEjercicio, int codPrograma, int codCliente) {
@@ -95,11 +92,11 @@ public class ActividadDia implements Serializable {
         this.duracion = duracion;
     }
 
-    public String getCumplido() {
+    public CumplidoActividadEnum getCumplido() {
         return cumplido;
     }
 
-    public void setCumplido(String cumplido) {
+    public void setCumplido(CumplidoActividadEnum cumplido) {
         this.cumplido = cumplido;
     }
 

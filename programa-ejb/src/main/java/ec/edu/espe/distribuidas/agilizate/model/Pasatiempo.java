@@ -7,9 +7,12 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodPasatiempo;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,8 +27,9 @@ public class Pasatiempo implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @Enumerated(EnumType.STRING)
     @Column(name = "COD_PASATIEMPO", nullable = false, length = 3)
-    private String codPasatiempo;
+    private CodPasatiempo codPasatiempo;
 
     @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
@@ -33,23 +37,18 @@ public class Pasatiempo implements Serializable {
     public Pasatiempo() {
     }
 
-    public Pasatiempo(String codPasatiempo) {
+    public Pasatiempo(CodPasatiempo codPasatiempo) {
         this.codPasatiempo = codPasatiempo;
     }
 
-    public Pasatiempo(String codPasatiempo, String descripcion) {
-        this.codPasatiempo = codPasatiempo;
-        this.descripcion = descripcion;
-    }
-
-    public String getCodPasatiempo() {
+    public CodPasatiempo getCodPasatiempo() {
         return codPasatiempo;
     }
 
-    public void setCodPasatiempo(String codPasatiempo) {
+    public void setCodPasatiempo(CodPasatiempo codPasatiempo) {
         this.codPasatiempo = codPasatiempo;
     }
-
+  
     public String getDescripcion() {
         return descripcion;
     }

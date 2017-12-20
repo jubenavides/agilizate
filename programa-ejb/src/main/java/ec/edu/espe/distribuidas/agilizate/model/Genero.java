@@ -7,9 +7,12 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodGeneroEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,8 +27,9 @@ public class Genero implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @Enumerated(EnumType.STRING)
     @Column(name = "COD_GENERO", nullable = false, length = 1)
-    private String codGenero;
+    private CodGeneroEnum codGenero;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
@@ -33,20 +37,15 @@ public class Genero implements Serializable {
     public Genero() {
     }
 
-    public Genero(String codGenero) {
+    public Genero(CodGeneroEnum codGenero) {
         this.codGenero = codGenero;
     }
 
-    public Genero(String codGenero, String descripcion) {
-        this.codGenero = codGenero;
-        this.descripcion = descripcion;
-    }
-
-    public String getCodGenero() {
+    public CodGeneroEnum getCodGenero() {
         return codGenero;
     }
 
-    public void setCodGenero(String codGenero) {
+    public void setCodGenero(CodGeneroEnum codGenero) {
         this.codGenero = codGenero;
     }
 

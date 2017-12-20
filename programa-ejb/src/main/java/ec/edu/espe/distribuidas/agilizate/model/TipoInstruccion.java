@@ -7,9 +7,12 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodTipoInstruccionEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,8 +27,9 @@ public class TipoInstruccion implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @Enumerated(EnumType.STRING)
     @Column(name = "COD_TIP_INSTRUCCION", nullable = false, length = 3)
-    private String codTipInstruccion;
+    private CodTipoInstruccionEnum codTipInstruccion;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
@@ -33,20 +37,15 @@ public class TipoInstruccion implements Serializable {
     public TipoInstruccion() {
     }
 
-    public TipoInstruccion(String codTipInstruccion) {
+    public TipoInstruccion(CodTipoInstruccionEnum codTipInstruccion) {
         this.codTipInstruccion = codTipInstruccion;
     }
 
-    public TipoInstruccion(String codTipInstruccion, String descripcion) {
-        this.codTipInstruccion = codTipInstruccion;
-        this.descripcion = descripcion;
-    }
-
-    public String getCodTipInstruccion() {
+    public CodTipoInstruccionEnum getCodTipInstruccion() {
         return codTipInstruccion;
     }
 
-    public void setCodTipInstruccion(String codTipInstruccion) {
+    public void setCodTipInstruccion(CodTipoInstruccionEnum codTipInstruccion) {
         this.codTipInstruccion = codTipInstruccion;
     }
 

@@ -7,11 +7,14 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.EstadoProgramaClienteEnum;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -51,8 +54,9 @@ public class ProgramaCliente implements Serializable {
     @Column(name = "EJERCICIO_COMBINADO", nullable=false)
     private short ejercicioCombinado;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "ESTADO", nullable=false,length = 2)
-    private String estado;
+    private EstadoProgramaClienteEnum estado;
     
     @Column(name = "TOTAL_DURACION")
     private Short totalDuracion;
@@ -70,16 +74,6 @@ public class ProgramaCliente implements Serializable {
 
     public ProgramaCliente(ProgramaClientePK programaClientePK) {
         this.programaClientePK = programaClientePK;
-    }
-
-    public ProgramaCliente(ProgramaClientePK programaClientePK, String descripcion, Date fechaInicio, short ejercicioFisico, short ejercicioMental, short ejercicioCombinado, String estado) {
-        this.programaClientePK = programaClientePK;
-        this.descripcion = descripcion;
-        this.fechaInicio = fechaInicio;
-        this.ejercicioFisico = ejercicioFisico;
-        this.ejercicioMental = ejercicioMental;
-        this.ejercicioCombinado = ejercicioCombinado;
-        this.estado = estado;
     }
 
     public ProgramaCliente(int codPrograma, int codCliente) {
@@ -150,11 +144,11 @@ public class ProgramaCliente implements Serializable {
         this.ejercicioCombinado = ejercicioCombinado;
     }
 
-    public String getEstado() {
+    public EstadoProgramaClienteEnum getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoProgramaClienteEnum estado) {
         this.estado = estado;
     }
 

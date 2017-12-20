@@ -7,9 +7,12 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodCategoriaEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,8 +27,9 @@ public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @Enumerated(EnumType.STRING)
     @Column(name = "COD_CATEGORIA", nullable = false, length = 3)
-    private String codCategoria;
+    private CodCategoriaEnum codCategoria;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
@@ -33,20 +37,15 @@ public class Categoria implements Serializable {
     public Categoria() {
     }
 
-    public Categoria(String codCategoria) {
+    public Categoria(CodCategoriaEnum codCategoria) {
         this.codCategoria = codCategoria;
     }
 
-    public Categoria(String codCategoria, String descripcion) {
-        this.codCategoria = codCategoria;
-        this.descripcion = descripcion;
-    }
-
-    public String getCodCategoria() {
+    public CodCategoriaEnum getCodCategoria() {
         return codCategoria;
     }
 
-    public void setCodCategoria(String codCategoria) {
+    public void setCodCategoria(CodCategoriaEnum codCategoria) {
         this.codCategoria = codCategoria;
     }
 

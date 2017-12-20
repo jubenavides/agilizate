@@ -7,9 +7,12 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodDificultadEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,8 +27,9 @@ public class Dificultad implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @Enumerated(EnumType.STRING)
     @Column(name = "COD_DIFICULTAD", nullable = false, length = 3)
-    private String codDificultad;
+    private CodDificultadEnum codDificultad;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 20)
     private String descripcion;
@@ -33,20 +37,15 @@ public class Dificultad implements Serializable {
     public Dificultad() {
     }
 
-    public Dificultad(String codDificultad) {
+    public Dificultad(CodDificultadEnum codDificultad) {
         this.codDificultad = codDificultad;
     }
 
-    public Dificultad(String codDificultad, String descripcion) {
-        this.codDificultad = codDificultad;
-        this.descripcion = descripcion;
-    }
-
-    public String getCodDificultad() {
+    public CodDificultadEnum getCodDificultad() {
         return codDificultad;
     }
 
-    public void setCodDificultad(String codDificultad) {
+    public void setCodDificultad(CodDificultadEnum codDificultad) {
         this.codDificultad = codDificultad;
     }
 
