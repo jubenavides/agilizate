@@ -1,20 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,27 +21,25 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "instruccion")
-@NamedQueries({
-    @NamedQuery(name = "Instruccion.findAll", query = "SELECT i FROM Instruccion i")})
 public class Instruccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_INSTRUCCION")
+    @Column(name = "COD_INSTRUCCION", nullable = false)
     private Integer codInstruccion;
-    @Size(max = 3)
-    @Column(name = "COD_TIP_INSTRUCCION")
-    private String codTipInstruccion;
-    @Column(name = "COD_EJERCICIO")
-    private Integer codEjercicio;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "RECURSO")
+    
+    @Column(name = "RECURSO", nullable = false, length = 200)
     private String recurso;
 
+    @JoinColumn(name = "COD_TIPO_INSTRUCCION", referencedColumnName = "COD_TIPO_INSTRUCCION", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private TipoInstruccion tipoInstruccion;
+    
+    @JoinColumn(name = "COD_EJERCICIO", referencedColumnName = "COD_EJERCICIO", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Ejercicio ejercicio;
+    
     public Instruccion() {
     }
 
@@ -63,20 +60,20 @@ public class Instruccion implements Serializable {
         this.codInstruccion = codInstruccion;
     }
 
-    public String getCodTipInstruccion() {
-        return codTipInstruccion;
+    public TipoInstruccion getTipoInstruccion() {
+        return tipoInstruccion;
     }
 
-    public void setCodTipInstruccion(String codTipInstruccion) {
-        this.codTipInstruccion = codTipInstruccion;
+    public void setTipoInstruccion(TipoInstruccion tipoInstruccion) {
+        this.tipoInstruccion = tipoInstruccion;
     }
 
-    public Integer getCodEjercicio() {
-        return codEjercicio;
+    public Ejercicio getEjercicio() {
+        return ejercicio;
     }
 
-    public void setCodEjercicio(Integer codEjercicio) {
-        this.codEjercicio = codEjercicio;
+    public void setEjercicio(Ejercicio ejercicio) {
+        this.ejercicio = ejercicio;
     }
 
     public String getRecurso() {
@@ -109,7 +106,7 @@ public class Instruccion implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.Instruccion[ codInstruccion=" + codInstruccion + " ]";
+        return "Instruccion{" + "codInstruccion=" + codInstruccion + ", recurso=" + recurso + ", tipoInstruccion=" + tipoInstruccion + ", ejercicio=" + ejercicio + '}';
     }
-    
+
 }

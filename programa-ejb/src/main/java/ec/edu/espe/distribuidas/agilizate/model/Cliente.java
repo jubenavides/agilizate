@@ -1,20 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,43 +21,38 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "cliente")
-@NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_CLIENTE")
+    @Column(name = "COD_CLIENTE", nullable = false)
     private Integer codCliente;
-    @Size(max = 3)
-    @Column(name = "COD_TIPO_CLIENTE")
-    private String codTipoCliente;
-    @Size(max = 1)
-    @Column(name = "COD_GENERO")
-    private String codGenero;
-    @Size(max = 3)
-    @Column(name = "COD_PASATIEMPO")
-    private String codPasatiempo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "NOMBRE")
+
+    @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "APELLIDO")
+    
+    @Column(name = "APELLIDO", nullable = false, length = 100)
     private String apellido;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EDAD")
+    
+    @Column(name = "EDAD", nullable = false)
     private short edad;
-    @Size(max = 100)
-    @Column(name = "CORREO")
+    
+    @Column(name = "CORREO", length = 100)
     private String correo;
 
+    @JoinColumn(name = "COD_TIPO_CLIENTE", referencedColumnName = "COD_TIPO_CLIENTE", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private TipoCliente tipoCliente;
+    
+    @JoinColumn(name = "COD_GENERO", referencedColumnName = "COD_GENERO", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Genero genero;
+    
+    @JoinColumn(name = "COD_PASATIEMPO", referencedColumnName = "COD_PASATIEMPO", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Pasatiempo pasatiempo;
+    
     public Cliente() {
     }
 
@@ -81,28 +75,28 @@ public class Cliente implements Serializable {
         this.codCliente = codCliente;
     }
 
-    public String getCodTipoCliente() {
-        return codTipoCliente;
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
     }
 
-    public void setCodTipoCliente(String codTipoCliente) {
-        this.codTipoCliente = codTipoCliente;
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
 
-    public String getCodGenero() {
-        return codGenero;
+    public Genero getGenero() {
+        return genero;
     }
 
-    public void setCodGenero(String codGenero) {
-        this.codGenero = codGenero;
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 
-    public String getCodPasatiempo() {
-        return codPasatiempo;
+    public Pasatiempo getPasatiempo() {
+        return pasatiempo;
     }
 
-    public void setCodPasatiempo(String codPasatiempo) {
-        this.codPasatiempo = codPasatiempo;
+    public void setPasatiempo(Pasatiempo pasatiempo) {
+        this.pasatiempo = pasatiempo;
     }
 
     public String getNombre() {
@@ -159,7 +153,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.Cliente[ codCliente=" + codCliente + " ]";
+        return "Cliente{" + "codCliente=" + codCliente + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo=" + correo + ", tipoCliente=" + tipoCliente + ", genero=" + genero + ", pasatiempo=" + pasatiempo + '}';
     }
-    
+
 }

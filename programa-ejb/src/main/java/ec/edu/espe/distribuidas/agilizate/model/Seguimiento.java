@@ -1,19 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -21,24 +19,20 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "seguimiento")
-@NamedQueries({
-    @NamedQuery(name = "Seguimiento.findAll", query = "SELECT s FROM Seguimiento s")})
 public class Seguimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_SEGUIMIENTO")
+    @Column(name = "COD_SEGUIMIENTO", nullable = false)
     private Integer codSeguimiento;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "AVANCE")
+    
+    @Column(name = "AVANCE", nullable = false)
     private short avance;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CALIFICACION_APLICACION")
+    
+    @Column(name = "CALIFICACION_APLICACION", nullable = false)
     private short calificacionAplicacion;
+    
     @Column(name = "TOTAL_DURACION")
     private Short totalDuracion;
 
@@ -109,7 +103,7 @@ public class Seguimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.Seguimiento[ codSeguimiento=" + codSeguimiento + " ]";
+        return "Seguimiento{" + "codSeguimiento=" + codSeguimiento + ", avance=" + avance + ", calificacionAplicacion=" + calificacionAplicacion + ", totalDuracion=" + totalDuracion + '}';
     }
     
 }

@@ -1,20 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,21 +19,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "genero")
-@NamedQueries({
-    @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g")})
 public class Genero implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "COD_GENERO")
+    @Column(name = "COD_GENERO", nullable = false, length = 1)
     private String codGenero;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
 
     public Genero() {
@@ -89,7 +80,7 @@ public class Genero implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.Genero[ codGenero=" + codGenero + " ]";
+        return "Genero{" + "codGenero=" + codGenero + ", descripcion=" + descripcion + '}';
     }
-    
+
 }

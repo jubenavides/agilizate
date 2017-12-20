@@ -1,20 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,36 +21,37 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "ejercicio")
-@NamedQueries({
-    @NamedQuery(name = "Ejercicio.findAll", query = "SELECT e FROM Ejercicio e")})
 public class Ejercicio implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_EJERCICIO")
+    @Column(name = "COD_EJERCICIO", nullable = false)
     private Integer codEjercicio;
-    @Size(max = 3)
-    @Column(name = "COD_PASATIEMPO")
-    private String codPasatiempo;
-    @Size(max = 1)
-    @Column(name = "COD_GENERO")
-    private String codGenero;
-    @Size(max = 3)
-    @Column(name = "COD_CATEGORIA")
-    private String codCategoria;
-    @Column(name = "COD_MATERIAL")
-    private Integer codMaterial;
-    @Size(max = 3)
-    @Column(name = "COD_DIFICULTAD")
-    private String codDificultad;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", nullable = false, length = 500)
     private String descripcion;
 
+    @JoinColumn(name = "COD_PASATIEMPO", referencedColumnName = "COD_PASATIEMPO", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Pasatiempo pasatiempo;
+     
+    @JoinColumn(name = "COD_GENERO", referencedColumnName = "COD_GENERO", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Genero genero;
+    
+    @JoinColumn(name = "COD_CATEGORIA", referencedColumnName = "COD_CATEGORIA", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Categoria categoria;
+   
+    @JoinColumn(name = "COD_MATERIAL", referencedColumnName = "COD_MATERIAL", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Material material;
+    
+    @JoinColumn(name = "COD_DIFICULTAD", referencedColumnName = "COD_DIFICULTAD", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Dificultad dificultad;
+     
     public Ejercicio() {
     }
 
@@ -72,44 +72,44 @@ public class Ejercicio implements Serializable {
         this.codEjercicio = codEjercicio;
     }
 
-    public String getCodPasatiempo() {
-        return codPasatiempo;
+    public Pasatiempo getPasatiempo() {
+        return pasatiempo;
     }
 
-    public void setCodPasatiempo(String codPasatiempo) {
-        this.codPasatiempo = codPasatiempo;
+    public void setPasatiempo(Pasatiempo pasatiempo) {
+        this.pasatiempo = pasatiempo;
     }
 
-    public String getCodGenero() {
-        return codGenero;
+    public Genero getGenero() {
+        return genero;
     }
 
-    public void setCodGenero(String codGenero) {
-        this.codGenero = codGenero;
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 
-    public String getCodCategoria() {
-        return codCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCodCategoria(String codCategoria) {
-        this.codCategoria = codCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public Integer getCodMaterial() {
-        return codMaterial;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setCodMaterial(Integer codMaterial) {
-        this.codMaterial = codMaterial;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
-    public String getCodDificultad() {
-        return codDificultad;
+    public Dificultad getDificultad() {
+        return dificultad;
     }
 
-    public void setCodDificultad(String codDificultad) {
-        this.codDificultad = codDificultad;
+    public void setDificultad(Dificultad dificultad) {
+        this.dificultad = dificultad;
     }
 
     public String getDescripcion() {
@@ -142,7 +142,7 @@ public class Ejercicio implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.Ejercicio[ codEjercicio=" + codEjercicio + " ]";
+        return "Ejercicio{" + "codEjercicio=" + codEjercicio + ", descripcion=" + descripcion + ", pasatiempo=" + pasatiempo + ", genero=" + genero + ", categoria=" + categoria + ", material=" + material + ", dificultad=" + dificultad + '}';
     }
     
 }

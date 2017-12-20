@@ -1,20 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,19 +19,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "tipo_cliente")
-@NamedQueries({
-    @NamedQuery(name = "TipoCliente.findAll", query = "SELECT t FROM TipoCliente t")})
 public class TipoCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "COD_TIPO_CLIENTE")
+    @Column(name = "COD_TIPO_CLIENTE", nullable = false, length = 3)
     private String codTipoCliente;
-    @Size(max = 200)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", length = 200)
     private String descripcion;
 
     public TipoCliente() {
@@ -82,7 +75,7 @@ public class TipoCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.TipoCliente[ codTipoCliente=" + codTipoCliente + " ]";
+        return "TipoCliente{" + "codTipoCliente=" + codTipoCliente + ", descripcion=" + descripcion + '}';
     }
     
 }

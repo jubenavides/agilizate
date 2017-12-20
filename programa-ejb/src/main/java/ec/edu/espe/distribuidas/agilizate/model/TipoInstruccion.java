@@ -1,20 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,21 +19,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "tipo_instruccion")
-@NamedQueries({
-    @NamedQuery(name = "TipoInstruccion.findAll", query = "SELECT t FROM TipoInstruccion t")})
 public class TipoInstruccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "COD_TIP_INSTRUCCION")
+    @Column(name = "COD_TIP_INSTRUCCION", nullable = false, length = 3)
     private String codTipInstruccion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
 
     public TipoInstruccion() {
@@ -89,7 +80,8 @@ public class TipoInstruccion implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.TipoInstruccion[ codTipInstruccion=" + codTipInstruccion + " ]";
+        return "TipoInstruccion{" + "codTipInstruccion=" + codTipInstruccion + ", descripcion=" + descripcion + '}';
     }
+
     
 }

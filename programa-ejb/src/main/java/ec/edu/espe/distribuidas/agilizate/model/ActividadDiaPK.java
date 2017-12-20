@@ -1,15 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -18,21 +18,16 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class ActividadDiaPK implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_DIA")
+    @Column(name = "COD_DIA", nullable=false)
     private int codDia;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_EJERCICIO")
+
+    @Column(name = "COD_EJERCICIO", nullable=false)
     private int codEjercicio;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_PROGRAMA")
+
+    @Column(name = "COD_PROGRAMA", nullable=false)
     private int codPrograma;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_CLIENTE")
+    
+    @Column(name = "COD_CLIENTE", nullable=false)
     private int codCliente;
 
     public ActividadDiaPK() {

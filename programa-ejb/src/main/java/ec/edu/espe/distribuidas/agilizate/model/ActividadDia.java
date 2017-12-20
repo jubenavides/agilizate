@@ -1,23 +1,22 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,28 +24,35 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "actividad_dia")
-@NamedQueries({
-    @NamedQuery(name = "ActividadDia.findAll", query = "SELECT a FROM ActividadDia a")})
 public class ActividadDia implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected ActividadDiaPK actividadDiaPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA")
+    
+    @Column(name = "FECHA",nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DURACION")
+
+    @Column(name = "DURACION",nullable=false)
     private short duracion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "CUMPLIDO")
+
+    @Column(name = "CUMPLIDO",nullable=false,length=2)
     private String cumplido;
 
+    @JoinColumn(name="COD_EJERCICIO",referencedColumnName="COD_EJERCICIO",nullable=false,insertable=false,updatable=false)
+    @ManyToOne(optional = false)
+    private Ejercicio ejercicio;
+       
+    @JoinColumn(name="COD_PROGRAMA",referencedColumnName="COD_PROGRAMA",nullable=false,insertable=false,updatable=false)
+    @ManyToOne(optional = false)
+    private ProgramaCliente programaCliente;
+    
+    @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+       
     public ActividadDia() {
     }
 
@@ -97,6 +103,30 @@ public class ActividadDia implements Serializable {
         this.cumplido = cumplido;
     }
 
+    public Ejercicio getEjercicio() {
+        return ejercicio;
+    }
+
+    public void setEjercicio(Ejercicio ejercicio) {
+        this.ejercicio = ejercicio;
+    }
+
+    public ProgramaCliente getProgramaCliente() {
+        return programaCliente;
+    }
+
+    public void setProgramaCliente(ProgramaCliente programaCliente) {
+        this.programaCliente = programaCliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -119,7 +149,7 @@ public class ActividadDia implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.ActividadDia[ actividadDiaPK=" + actividadDiaPK + " ]";
+        return "ActividadDia{" + "actividadDiaPK=" + actividadDiaPK + ", fecha=" + fecha + ", duracion=" + duracion + ", cumplido=" + cumplido + ", ejercicio=" + ejercicio + ", programaCliente=" + programaCliente + ", cliente=" + cliente + '}';
     }
     
 }

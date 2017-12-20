@@ -1,23 +1,22 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,48 +24,47 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "programa_cliente")
-@NamedQueries({
-    @NamedQuery(name = "ProgramaCliente.findAll", query = "SELECT p FROM ProgramaCliente p")})
 public class ProgramaCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected ProgramaClientePK programaClientePK;
-    @Column(name = "COD_SEGUIMIENTO")
-    private Integer codSeguimiento;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 500)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", nullable=false, length = 500)
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA_INICIO")
+    
+    @Column(name = "FECHA_INICIO", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
+    
     @Column(name = "FECHA_FIN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFin;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EJERCICIO_FISICO")
+    
+    @Column(name = "EJERCICIO_FISICO", nullable=false)
     private short ejercicioFisico;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EJERCICIO_MENTAL")
+    
+    @Column(name = "EJERCICIO_MENTAL", nullable=false)
     private short ejercicioMental;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EJERCICIO_COMBINADO")
+    
+    @Column(name = "EJERCICIO_COMBINADO", nullable=false)
     private short ejercicioCombinado;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "ESTADO")
+    
+    @Column(name = "ESTADO", nullable=false,length = 2)
     private String estado;
+    
     @Column(name = "TOTAL_DURACION")
     private Short totalDuracion;
 
+    @JoinColumn(name="COD_SEGUIMIENTO",referencedColumnName="COD_SEGUIMIENTO",nullable=false,insertable=false,updatable=false)
+    @ManyToOne(optional = false)
+    private Seguimiento seguimiento;
+    
+    @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+    
     public ProgramaCliente() {
     }
 
@@ -96,12 +94,12 @@ public class ProgramaCliente implements Serializable {
         this.programaClientePK = programaClientePK;
     }
 
-    public Integer getCodSeguimiento() {
-        return codSeguimiento;
+    public Seguimiento getSeguimiento() {
+        return seguimiento;
     }
 
-    public void setCodSeguimiento(Integer codSeguimiento) {
-        this.codSeguimiento = codSeguimiento;
+    public void setSeguimiento(Seguimiento seguimiento) {
+        this.seguimiento = seguimiento;
     }
 
     public String getDescripcion() {
@@ -168,6 +166,14 @@ public class ProgramaCliente implements Serializable {
         this.totalDuracion = totalDuracion;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -190,7 +196,7 @@ public class ProgramaCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.agilizate.model.ProgramaCliente[ programaClientePK=" + programaClientePK + " ]";
+        return "ProgramaCliente{" + "programaClientePK=" + programaClientePK + ", descripcion=" + descripcion + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", ejercicioFisico=" + ejercicioFisico + ", ejercicioMental=" + ejercicioMental + ", ejercicioCombinado=" + ejercicioCombinado + ", estado=" + estado + ", totalDuracion=" + totalDuracion + ", seguimiento=" + seguimiento + ", cliente=" + cliente + '}';
     }
-    
+      
 }
