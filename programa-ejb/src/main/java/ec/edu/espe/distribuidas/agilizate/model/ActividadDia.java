@@ -54,7 +54,6 @@ public class ActividadDia implements Serializable {
         @JoinColumn(name="COD_PROGRAMA",referencedColumnName="COD_PROGRAMA",nullable=false,insertable=false,updatable=false),
         @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)})
     @ManyToOne 
-    
     private ProgramaCliente programaCliente;
       
     public ActividadDia() {
