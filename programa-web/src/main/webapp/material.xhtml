@@ -3,31 +3,51 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="contenido">
-            <p:panel header="Materiales" style="width: 50%; margin: auto;">
-                <p:dataTable var="material" value="#{materialBean.materiales}">
+            <p:panel id="mainPnl" header="Tipos de clientes" style="width: 50%; margin: auto;">
+                <p:dataTable var="material" value="#{materialBean.materiales}" 
+                             selectionMode="single" selection="#{materialBean.materialSel}" rowKey="#{material.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">
-                        <h:outputText value="#{material.codMaterial}" />
+                        <h:outputText value="#{material.codigo}" />
                     </p:column>
                     <p:column headerText="Descripcion">
                         <h:outputText value="#{material.descripcion}" />
                     </p:column>
+                    <p:column headerText="Imagen">
+                        <h:outputText value="#{material.imagen}" />
+                    </p:column>
                 </p:dataTable>
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                 <p:commandButton value="Agregar" actionListener="#{materialBean.agregar()}" update="@form"/>
-                <p:panel header="Agregar Material" visible="#{materialBean.enAgregar}">
+                <p:commandButton id="modBtn" value="Modificar" actionListener="#{materialBean.modificar()}" update="@form" disabled="#{materialBean.materialSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{materialBean.eliminar()}" update="@form" disabled="#{materialBean.materialSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el material con codigo: #{materialBean.materialSel.codigo}}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{materialBean.titulo} Tipo de Cliente Nuevo" visible="#{materialBean.habilitaForm}">
                     <p:panelGrid columns="2">
                         <p:outputLabel for="codigo" value="Codigo" />
-                        <p:inputText id="codigo" value="#{materialBean.material.codMaterial}"/>
-                        <p:outputLabel for="descripcion" value="Descripcion" />
-                        <p:inputText id="descripcion" value="#{materialBean.material.descripcion}"/>
+                        <p:inputText id="codigo" value="#{materialBean.material.codigo}" disabled="true" />
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n" />
+                        <p:inputTextarea id="descripcion" value="#{materialBean.material.descripcion}" rows="2" cols="20" />
+                        <p:outputLabel for="imagen" value="Imagen" />
+                        <p:inputText id="imagen" value="#{materialBean.material.imagen}"/>
                     </p:panelGrid>
                     <p:commandButton value="Aceptar" actionListener="#{materialBean.guardar}" update="@form" />
                     <p:commandButton value="Cancelar" actionListener="#{materialBean.cancelar}" update="@form" />
+
                 </p:panel>
+
             </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
         </ui:define>
     </ui:composition>
 </html>

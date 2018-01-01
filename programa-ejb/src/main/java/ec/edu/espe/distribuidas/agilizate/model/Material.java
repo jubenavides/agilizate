@@ -8,6 +8,7 @@
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Material implements Serializable {
     
     @Id
     @Column(name = "COD_MATERIAL", nullable = false)
-    private Integer codMaterial;
+    private Integer codigo;
 
     @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
@@ -35,22 +36,17 @@ public class Material implements Serializable {
 
     public Material() {
     }
-
-    public Material(Integer codMaterial) {
-        this.codMaterial = codMaterial;
+    
+    public Material(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Material(Integer codMaterial, String descripcion) {
-        this.codMaterial = codMaterial;
-        this.descripcion = descripcion;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodMaterial() {
-        return codMaterial;
-    }
-
-    public void setCodMaterial(Integer codMaterial) {
-        this.codMaterial = codMaterial;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getDescripcion() {
@@ -71,19 +67,24 @@ public class Material implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codMaterial != null ? codMaterial.hashCode() : 0);
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Material)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Material other = (Material) object;
-        if ((this.codMaterial == null && other.codMaterial != null) || (this.codMaterial != null && !this.codMaterial.equals(other.codMaterial))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Material other = (Material) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -91,7 +92,7 @@ public class Material implements Serializable {
 
     @Override
     public String toString() {
-        return "Material{" + "codMaterial=" + codMaterial + ", descripcion=" + descripcion + ", imagen=" + imagen + '}';
+        return "Material{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", imagen=" + imagen + '}';
     }
 
 }

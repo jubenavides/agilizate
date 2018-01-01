@@ -7,12 +7,10 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
-import ec.edu.espe.distribuidas.agilizate.enums.CodDificultadEnum;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,26 +25,36 @@ public class Dificultad implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @Enumerated(EnumType.STRING)
-    @Column(name = "COD_DIFICULTAD", nullable = false, length = 3)
-    private CodDificultadEnum codDificultad;
+    @Column(name = "COD_DIFICULTAD", nullable = false)
+    private Integer codigo;
     
-    @Column(name = "DESCRIPCION", nullable = false, length = 20)
+    @Column(name = "NOMBRE", nullable = false, length = 20)
+    private String nombre;
+    
+    @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
 
     public Dificultad() {
     }
 
-    public Dificultad(CodDificultadEnum codDificultad) {
-        this.codDificultad = codDificultad;
+    public Dificultad(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public CodDificultadEnum getCodDificultad() {
-        return codDificultad;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public void setCodDificultad(CodDificultadEnum codDificultad) {
-        this.codDificultad = codDificultad;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -59,19 +67,24 @@ public class Dificultad implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codDificultad != null ? codDificultad.hashCode() : 0);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Dificultad)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Dificultad other = (Dificultad) object;
-        if ((this.codDificultad == null && other.codDificultad != null) || (this.codDificultad != null && !this.codDificultad.equals(other.codDificultad))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Dificultad other = (Dificultad) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -79,7 +92,7 @@ public class Dificultad implements Serializable {
 
     @Override
     public String toString() {
-        return "Dificultad{" + "codDificultad=" + codDificultad + ", descripcion=" + descripcion + '}';
+        return "Dificultad{" + "codigo=" + codigo + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
     
 }

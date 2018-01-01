@@ -7,12 +7,10 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
-import ec.edu.espe.distribuidas.agilizate.enums.CodTipoInstruccionEnum;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,9 +25,11 @@ public class TipoInstruccion implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @Enumerated(EnumType.STRING)
-    @Column(name = "COD_TIP_INSTRUCCION", nullable = false, length = 3)
-    private CodTipoInstruccionEnum codTipInstruccion;
+    @Column(name = "COD_TIP_INSTRUCCION", nullable = false)
+    private Integer codigo;
+    
+    @Column(name = "NOMBRE", nullable = false, length = 20)
+    private String nombre;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
@@ -37,16 +37,24 @@ public class TipoInstruccion implements Serializable {
     public TipoInstruccion() {
     }
 
-    public TipoInstruccion(CodTipoInstruccionEnum codTipInstruccion) {
-        this.codTipInstruccion = codTipInstruccion;
+    public TipoInstruccion(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public CodTipoInstruccionEnum getCodTipInstruccion() {
-        return codTipInstruccion;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public void setCodTipInstruccion(CodTipoInstruccionEnum codTipInstruccion) {
-        this.codTipInstruccion = codTipInstruccion;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -59,19 +67,24 @@ public class TipoInstruccion implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codTipInstruccion != null ? codTipInstruccion.hashCode() : 0);
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoInstruccion)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        TipoInstruccion other = (TipoInstruccion) object;
-        if ((this.codTipInstruccion == null && other.codTipInstruccion != null) || (this.codTipInstruccion != null && !this.codTipInstruccion.equals(other.codTipInstruccion))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TipoInstruccion other = (TipoInstruccion) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -79,8 +92,8 @@ public class TipoInstruccion implements Serializable {
 
     @Override
     public String toString() {
-        return "TipoInstruccion{" + "codTipInstruccion=" + codTipInstruccion + ", descripcion=" + descripcion + '}';
+        return "TipoInstruccion{" + "codigo=" + codigo + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
-
+    
     
 }

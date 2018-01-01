@@ -51,6 +51,10 @@ public class Ejercicio implements Serializable {
     @JoinColumn(name = "COD_DIFICULTAD", referencedColumnName = "COD_DIFICULTAD", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Dificultad dificultad;
+    
+    @JoinColumn(name = "COD_TIPO_CLIENTE", referencedColumnName = "COD_TIPO_CLIENTE", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private TipoCliente tipoCliente;
      
     public Ejercicio() {
     }

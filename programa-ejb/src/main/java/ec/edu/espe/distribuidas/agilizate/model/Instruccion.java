@@ -8,6 +8,7 @@
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Instruccion implements Serializable {
     
     @Id
     @Column(name = "COD_INSTRUCCION", nullable = false)
-    private Integer codInstruccion;
+    private Integer codigo;
     
     @Column(name = "RECURSO", nullable = false, length = 200)
     private String recurso;
@@ -39,25 +40,28 @@ public class Instruccion implements Serializable {
     @JoinColumn(name = "COD_EJERCICIO", referencedColumnName = "COD_EJERCICIO", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ejercicio ejercicio;
-    
+
     public Instruccion() {
     }
 
-    public Instruccion(Integer codInstruccion) {
-        this.codInstruccion = codInstruccion;
+    public Instruccion(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Instruccion(Integer codInstruccion, String recurso) {
-        this.codInstruccion = codInstruccion;
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getRecurso() {
+        return recurso;
+    }
+
+    public void setRecurso(String recurso) {
         this.recurso = recurso;
-    }
-
-    public Integer getCodInstruccion() {
-        return codInstruccion;
-    }
-
-    public void setCodInstruccion(Integer codInstruccion) {
-        this.codInstruccion = codInstruccion;
     }
 
     public TipoInstruccion getTipoInstruccion() {
@@ -76,29 +80,26 @@ public class Instruccion implements Serializable {
         this.ejercicio = ejercicio;
     }
 
-    public String getRecurso() {
-        return recurso;
-    }
-
-    public void setRecurso(String recurso) {
-        this.recurso = recurso;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codInstruccion != null ? codInstruccion.hashCode() : 0);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Instruccion)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Instruccion other = (Instruccion) object;
-        if ((this.codInstruccion == null && other.codInstruccion != null) || (this.codInstruccion != null && !this.codInstruccion.equals(other.codInstruccion))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Instruccion other = (Instruccion) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -106,7 +107,7 @@ public class Instruccion implements Serializable {
 
     @Override
     public String toString() {
-        return "Instruccion{" + "codInstruccion=" + codInstruccion + ", recurso=" + recurso + ", tipoInstruccion=" + tipoInstruccion + ", ejercicio=" + ejercicio + '}';
+        return "Instruccion{" + "codigo=" + codigo + ", recurso=" + recurso + ", tipoInstruccion=" + tipoInstruccion + ", ejercicio=" + ejercicio + '}';
     }
-
+       
 }

@@ -9,6 +9,7 @@ package ec.edu.espe.distribuidas.agilizate.model;
 
 import ec.edu.espe.distribuidas.agilizate.enums.CodGeneroEnum;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -29,7 +30,7 @@ public class Genero implements Serializable {
     @Id
     @Enumerated(EnumType.STRING)
     @Column(name = "COD_GENERO", nullable = false, length = 1)
-    private CodGeneroEnum codGenero;
+    private CodGeneroEnum codigo;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
@@ -37,16 +38,16 @@ public class Genero implements Serializable {
     public Genero() {
     }
 
-    public Genero(CodGeneroEnum codGenero) {
-        this.codGenero = codGenero;
+    public Genero(CodGeneroEnum codigo) {
+        this.codigo = codigo;
     }
 
-    public CodGeneroEnum getCodGenero() {
-        return codGenero;
+    public CodGeneroEnum getCodigo() {
+        return codigo;
     }
 
-    public void setCodGenero(CodGeneroEnum codGenero) {
-        this.codGenero = codGenero;
+    public void setCodigo(CodGeneroEnum codigo) {
+        this.codigo = codigo;
     }
 
     public String getDescripcion() {
@@ -59,19 +60,24 @@ public class Genero implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codGenero != null ? codGenero.hashCode() : 0);
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Genero)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Genero other = (Genero) object;
-        if ((this.codGenero == null && other.codGenero != null) || (this.codGenero != null && !this.codGenero.equals(other.codGenero))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Genero other = (Genero) obj;
+        if (this.codigo != other.codigo) {
             return false;
         }
         return true;
@@ -79,7 +85,7 @@ public class Genero implements Serializable {
 
     @Override
     public String toString() {
-        return "Genero{" + "codGenero=" + codGenero + ", descripcion=" + descripcion + '}';
+        return "Genero{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
     }
-
+       
 }

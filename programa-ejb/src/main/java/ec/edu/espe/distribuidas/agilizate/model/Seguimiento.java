@@ -8,6 +8,7 @@
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,77 +26,76 @@ public class Seguimiento implements Serializable {
     
     @Id
     @Column(name = "COD_SEGUIMIENTO", nullable = false)
-    private Integer codSeguimiento;
+    private Integer codigo;
     
     @Column(name = "AVANCE", nullable = false)
-    private short avance;
+    private Integer avance;
     
     @Column(name = "CALIFICACION_APLICACION", nullable = false)
-    private short calificacionAplicacion;
+    private Integer calificacionAplicacion;
     
     @Column(name = "TOTAL_DURACION")
-    private Short totalDuracion;
+    private Integer totalDuracion;
 
     public Seguimiento() {
     }
 
-    public Seguimiento(Integer codSeguimiento) {
-        this.codSeguimiento = codSeguimiento;
+    public Seguimiento(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Seguimiento(Integer codSeguimiento, short avance, short calificacionAplicacion) {
-        this.codSeguimiento = codSeguimiento;
-        this.avance = avance;
-        this.calificacionAplicacion = calificacionAplicacion;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodSeguimiento() {
-        return codSeguimiento;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodSeguimiento(Integer codSeguimiento) {
-        this.codSeguimiento = codSeguimiento;
-    }
-
-    public short getAvance() {
+    public Integer getAvance() {
         return avance;
     }
 
-    public void setAvance(short avance) {
+    public void setAvance(Integer avance) {
         this.avance = avance;
     }
 
-    public short getCalificacionAplicacion() {
+    public Integer getCalificacionAplicacion() {
         return calificacionAplicacion;
     }
 
-    public void setCalificacionAplicacion(short calificacionAplicacion) {
+    public void setCalificacionAplicacion(Integer calificacionAplicacion) {
         this.calificacionAplicacion = calificacionAplicacion;
     }
 
-    public Short getTotalDuracion() {
+    public Integer getTotalDuracion() {
         return totalDuracion;
     }
 
-    public void setTotalDuracion(Short totalDuracion) {
+    public void setTotalDuracion(Integer totalDuracion) {
         this.totalDuracion = totalDuracion;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codSeguimiento != null ? codSeguimiento.hashCode() : 0);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Seguimiento)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Seguimiento other = (Seguimiento) object;
-        if ((this.codSeguimiento == null && other.codSeguimiento != null) || (this.codSeguimiento != null && !this.codSeguimiento.equals(other.codSeguimiento))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Seguimiento other = (Seguimiento) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class Seguimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "Seguimiento{" + "codSeguimiento=" + codSeguimiento + ", avance=" + avance + ", calificacionAplicacion=" + calificacionAplicacion + ", totalDuracion=" + totalDuracion + '}';
+        return "Seguimiento{" + "codigo=" + codigo + ", avance=" + avance + ", calificacionAplicacion=" + calificacionAplicacion + ", totalDuracion=" + totalDuracion + '}';
     }
     
 }

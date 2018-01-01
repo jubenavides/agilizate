@@ -7,12 +7,10 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
-import ec.edu.espe.distribuidas.agilizate.enums.CodPasatiempo;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,9 +25,11 @@ public class Pasatiempo implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @Enumerated(EnumType.STRING)
-    @Column(name = "COD_PASATIEMPO", nullable = false, length = 3)
-    private CodPasatiempo codPasatiempo;
+    @Column(name = "COD_PASATIEMPO", nullable = false)
+    private Integer codPasatiempo;
+
+    @Column(name = "NOMBRE", nullable = false, length = 20)
+    private String nombre;
 
     @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
@@ -37,18 +37,26 @@ public class Pasatiempo implements Serializable {
     public Pasatiempo() {
     }
 
-    public Pasatiempo(CodPasatiempo codPasatiempo) {
+    public Pasatiempo(Integer codPasatiempo) {
         this.codPasatiempo = codPasatiempo;
     }
 
-    public CodPasatiempo getCodPasatiempo() {
+    public Integer getCodPasatiempo() {
         return codPasatiempo;
     }
 
-    public void setCodPasatiempo(CodPasatiempo codPasatiempo) {
+    public void setCodPasatiempo(Integer codPasatiempo) {
         this.codPasatiempo = codPasatiempo;
     }
-  
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -59,19 +67,24 @@ public class Pasatiempo implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codPasatiempo != null ? codPasatiempo.hashCode() : 0);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.codPasatiempo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pasatiempo)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Pasatiempo other = (Pasatiempo) object;
-        if ((this.codPasatiempo == null && other.codPasatiempo != null) || (this.codPasatiempo != null && !this.codPasatiempo.equals(other.codPasatiempo))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pasatiempo other = (Pasatiempo) obj;
+        if (!Objects.equals(this.codPasatiempo, other.codPasatiempo)) {
             return false;
         }
         return true;
@@ -79,7 +92,8 @@ public class Pasatiempo implements Serializable {
 
     @Override
     public String toString() {
-        return "Pasatiempo{" + "codPasatiempo=" + codPasatiempo + ", descripcion=" + descripcion + '}';
+        return "Pasatiempo{" + "codPasatiempo=" + codPasatiempo + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
+    
     
 }

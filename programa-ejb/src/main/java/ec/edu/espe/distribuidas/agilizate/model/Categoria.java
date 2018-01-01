@@ -9,6 +9,7 @@ package ec.edu.espe.distribuidas.agilizate.model;
 
 import ec.edu.espe.distribuidas.agilizate.enums.CodCategoriaEnum;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -29,7 +30,7 @@ public class Categoria implements Serializable {
     @Id
     @Enumerated(EnumType.STRING)
     @Column(name = "COD_CATEGORIA", nullable = false, length = 3)
-    private CodCategoriaEnum codCategoria;
+    private CodCategoriaEnum codigo;
     
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
@@ -37,16 +38,16 @@ public class Categoria implements Serializable {
     public Categoria() {
     }
 
-    public Categoria(CodCategoriaEnum codCategoria) {
-        this.codCategoria = codCategoria;
+    public Categoria(CodCategoriaEnum codigo) {
+        this.codigo = codigo;
     }
 
-    public CodCategoriaEnum getCodCategoria() {
-        return codCategoria;
+    public CodCategoriaEnum getCodigo() {
+        return codigo;
     }
 
-    public void setCodCategoria(CodCategoriaEnum codCategoria) {
-        this.codCategoria = codCategoria;
+    public void setCodigo(CodCategoriaEnum codigo) {
+        this.codigo = codigo;
     }
 
     public String getDescripcion() {
@@ -59,19 +60,24 @@ public class Categoria implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codCategoria != null ? codCategoria.hashCode() : 0);
+        int hash = 5;
+        hash = 13 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categoria)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Categoria other = (Categoria) object;
-        if ((this.codCategoria == null && other.codCategoria != null) || (this.codCategoria != null && !this.codCategoria.equals(other.codCategoria))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Categoria other = (Categoria) obj;
+        if (this.codigo != other.codigo) {
             return false;
         }
         return true;
@@ -79,7 +85,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "Categoria{" + "codCategoria=" + codCategoria + ", descripcion=" + descripcion + '}';
+        return "Categoria{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
     }
-  
+    
 }

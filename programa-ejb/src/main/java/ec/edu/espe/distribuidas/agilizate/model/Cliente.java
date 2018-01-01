@@ -8,6 +8,7 @@
 package ec.edu.espe.distribuidas.agilizate.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Cliente implements Serializable {
     
     @Id
     @Column(name = "COD_CLIENTE", nullable = false)
-    private Integer codCliente;
+    private Integer codigo;
 
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
@@ -52,51 +53,20 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "COD_PASATIEMPO", referencedColumnName = "COD_PASATIEMPO", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Pasatiempo pasatiempo;
-    
+
     public Cliente() {
     }
 
-    public Cliente(Integer codCliente) {
-        this.codCliente = codCliente;
+    public Cliente(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Cliente(Integer codCliente, String nombre, String apellido, short edad) {
-        this.codCliente = codCliente;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodCliente() {
-        return codCliente;
-    }
-
-    public void setCodCliente(Integer codCliente) {
-        this.codCliente = codCliente;
-    }
-
-    public TipoCliente getTipoCliente() {
-        return tipoCliente;
-    }
-
-    public void setTipoCliente(TipoCliente tipoCliente) {
-        this.tipoCliente = tipoCliente;
-    }
-
-    public Genero getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
-
-    public Pasatiempo getPasatiempo() {
-        return pasatiempo;
-    }
-
-    public void setPasatiempo(Pasatiempo pasatiempo) {
-        this.pasatiempo = pasatiempo;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -131,21 +101,50 @@ public class Cliente implements Serializable {
         this.correo = correo;
     }
 
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public Pasatiempo getPasatiempo() {
+        return pasatiempo;
+    }
+
+    public void setPasatiempo(Pasatiempo pasatiempo) {
+        this.pasatiempo = pasatiempo;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codCliente != null ? codCliente.hashCode() : 0);
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Cliente other = (Cliente) object;
-        if ((this.codCliente == null && other.codCliente != null) || (this.codCliente != null && !this.codCliente.equals(other.codCliente))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -153,7 +152,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "codCliente=" + codCliente + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo=" + correo + ", tipoCliente=" + tipoCliente + ", genero=" + genero + ", pasatiempo=" + pasatiempo + '}';
+        return "Cliente{" + "codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo=" + correo + ", tipoCliente=" + tipoCliente + ", genero=" + genero + ", pasatiempo=" + pasatiempo + '}';
     }
-
+    
 }

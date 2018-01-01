@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Agillizate
+ * Aplicaciones Distribuidas
+ * NRC: 2434 
+ * Tutor: HENRY RAMIRO CORAL CORAL 
+ * 2018 (c) Arcentales-Benavides.SA.
  */
 package ec.edu.espe.distribuidas.agilizate.service;
 
@@ -29,6 +31,15 @@ public class MaterialService{
     
     public void crear(Material material) {
         this.materialFacade.create(material);
+    }
+    
+    public void modificar(Material material) {
+        this.materialFacade.edit(material);
+    }
+    
+    public void eliminar(Integer codigo) {
+        Material material = this.materialFacade.find(codigo);
+        this.materialFacade.remove(material);
     }
     
 }
