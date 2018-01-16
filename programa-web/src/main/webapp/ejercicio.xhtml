@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel id="mainPnl" header="Ejercicios" style="width: 50%; margin: auto;">
+                <p:panel id="buscPnl" header="Busqueda">
+                    <p:outputLabel for="filtroCmb" value="Buscar:" />
+                    <p:selectOneMenu id="filtroCmb" value="#{ejercicioAdminBean.filtro}">
+                        <p:ajax update="buscPnl" listener="#{ejercicioAdminBean.cambiarFiltro()}"/>
+                        <f:selectItem itemLabel="Dificultad" itemValue="DIF" />
+                        <f:selectItem itemLabel="Pasatiempo" itemValue="PAS" />
+                        <f:selectItem itemLabel="Tipo Cliente" itemValue="TPC" />
+                        <f:selectItem itemLabel="Categoria" itemValue="CAT" />
+                        <f:selectItem itemLabel="Material" itemValue="MAT" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Opciones"></p:outputLabel>
+                    <p:selectOneMenu id="opDificultad" value="#{ejercicioAdminBean.codDificultad}" rendered="#{ejercicioAdminBean.enBusquedaPorDificultad}">
+                        <f:selectItems var="dificultad" value="#{ejercicioAdminBean.dificultades}" itemLabel="#{dificultad.nombre}" itemValue="#{dificultad.codigo}" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu id="opPasitiempo" value="#{ejercicioAdminBean.codPasatiempo}" rendered="#{ejercicioAdminBean.enBusquedaPorPasatiempo}">
+                        <f:selectItems var="pasatiempo" value="#{ejercicioAdminBean.pasatiempos}" itemLabel="#{pasatiempo.nombre}" itemValue="#{pasatiempo.codPasatiempo}" />
+                    </p:selectOneMenu>
+                </p:panel>
+                <p:dataTable id="ejerciciosTbl" var="ejercicio" value="#{ejercicioAdminBean.listadoEjercicios}" 
+                             selectionMode="single" selection="#{ejercicioAdminBean.ejercicioSel}" rowKey="#{ejercicio.codEjercicio}">
+                    <p:ajax event="rowSelect" update="ejerciciosTbl" />
+                    <p:ajax event="rowUnselect" update="ejerciciosTbl" />
+                    <p:column headerText="Dificultad" sortBy="#{ejercicio.dificultad.nombre}">
+                        <h:outputText value="#{ejercicio.dificultad.nombre}"/>
+                        
+                    </p:column>
+                    <p:column headerText="Pasatiempo" sortBy="#{ejercicio.pasatiempo.nombre}">
+                        <h:outputText value="#{ejercicio.pasatiempo.nombre}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:commandButton value="Agregar" actionListener="#{ejercicioAdminBean.agregar()}" update="@form"/>
+                <p:commandButton id="modBtn" value="Modificar" actionListener="#{pasatiempoBean.modificar()}" update="@form" disabled="#{pasatiempoBean.pasatiempoSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{pasatiempoBean.eliminar()}" update="@form" disabled="#{pasatiempoBean.pasatiempoSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la dificultad: #{pasatiempoBean.pasatiempoSel.descripcion}}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{ejercicioAdminBean.titulo} Ejercicio" visible="#{ejercicioAdminBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="Codigo" />
+                        <p:inputText id="codigo" value="#{pasatiempoBean.pasatiempo.codPasatiempo}" disabled="true" />
+                        <p:outputLabel for="nombre" value="Nombre" />
+                        <p:inputText id="nombre" value="#{pasatiempoBean.pasatiempo.nombre}"/>
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n" />
+                        <p:inputTextarea id="descripcion" value="#{pasatiempoBean.pasatiempo.descripcion}" rows="2" cols="20" />
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{pasatiempoBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{pasatiempoBean.cancelar}" update="@form" />
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

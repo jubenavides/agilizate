@@ -6,10 +6,12 @@
 package ec.edu.espe.distribuidas.agilizate.dao;
 
 import ec.edu.espe.distribuidas.agilizate.model.Ejercicio;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class EjercicioFacade extends AbstractFacade<Ejercicio>{
+public class EjercicioFacade extends AbstractFacade<Ejercicio> {
 
     @PersistenceContext(unitName = "punit")
     private EntityManager em;
@@ -30,5 +32,17 @@ public class EjercicioFacade extends AbstractFacade<Ejercicio>{
     public EjercicioFacade() {
         super(Ejercicio.class);
     }
-    
+
+    public List<Ejercicio> findByDificultad(Integer codDificultad) {
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.dificultad=?1");
+        qry.setParameter(1, codDificultad);
+        return qry.getResultList();
+    }
+
+    public List<Ejercicio> findByPasatiempo(Integer codDificultad) {
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.pasatiempo=?1");
+        qry.setParameter(1, codDificultad);
+        return qry.getResultList();
+    }
+
 }
