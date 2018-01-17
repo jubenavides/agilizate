@@ -55,7 +55,7 @@ public class ProgramaCliente implements Serializable {
     private short ejercicioCombinado;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "ESTADO", nullable=false,length = 2)
+    @Column(name = "ESTADO", nullable=false,length = 3)
     private EstadoProgramaClienteEnum estado;
     
     @Column(name = "TOTAL_DURACION")
