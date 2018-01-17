@@ -7,10 +7,13 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodGeneroEnum;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,6 +33,17 @@ public class Cliente implements Serializable {
     @Column(name = "COD_CLIENTE", nullable = false)
     private Integer codigo;
 
+    @Column(name = "COD_TIPO_CLIENTE", nullable = false)
+    private Integer codTipoCliente;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "COD_GENERO", nullable = false, length = 1)
+    private CodGeneroEnum codGenero;
+    
+    @Column(name = "COD_PASATIEMPO", nullable = false)
+    private Integer codPasatiempo;
+    
+    
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
     
@@ -125,6 +139,32 @@ public class Cliente implements Serializable {
         this.pasatiempo = pasatiempo;
     }
 
+    public Integer getCodTipoCliente() {
+        return codTipoCliente;
+    }
+
+    public void setCodTipoCliente(Integer codTipoCliente) {
+        this.codTipoCliente = codTipoCliente;
+    }
+
+    public CodGeneroEnum getCodGenero() {
+        return codGenero;
+    }
+
+    public void setCodGenero(CodGeneroEnum codGenero) {
+        this.codGenero = codGenero;
+    }
+
+    public Integer getCodPasatiempo() {
+        return codPasatiempo;
+    }
+
+    public void setCodPasatiempo(Integer codPasatiempo) {
+        this.codPasatiempo = codPasatiempo;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -152,7 +192,8 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo=" + correo + ", tipoCliente=" + tipoCliente + ", genero=" + genero + ", pasatiempo=" + pasatiempo + '}';
+        return "Cliente{" + "codigo=" + codigo + ", codTipoCliente=" + codTipoCliente + ", codGenero=" + codGenero + ", codPasatiempo=" + codPasatiempo + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo=" + correo + ", tipoCliente=" + tipoCliente + ", genero=" + genero + ", pasatiempo=" + pasatiempo + '}';
     }
-    
+
+
 }
