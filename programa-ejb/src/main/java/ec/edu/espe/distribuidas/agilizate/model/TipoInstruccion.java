@@ -25,7 +25,7 @@ public class TipoInstruccion implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @Column(name = "COD_TIP_INSTRUCCION", nullable = false)
+    @Column(name = "COD_TIPO_INSTRUCCION", nullable = false)
     private Integer codigo;
     
     @Column(name = "NOMBRE", nullable = false, length = 20)

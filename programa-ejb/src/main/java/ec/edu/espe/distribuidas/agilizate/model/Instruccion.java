@@ -30,6 +30,12 @@ public class Instruccion implements Serializable {
     @Column(name = "COD_INSTRUCCION", nullable = false)
     private Integer codigo;
     
+    @Column(name = "COD_TIPO_INSTRUCCION", nullable = false)
+    private Integer codTipoInstruccion;
+    
+    @Column(name = "COD_EJERCICIO", nullable = false)
+    private Integer codEjercicio;
+    
     @Column(name = "RECURSO", nullable = false, length = 200)
     private String recurso;
 
@@ -80,6 +86,24 @@ public class Instruccion implements Serializable {
         this.ejercicio = ejercicio;
     }
 
+    public Integer getCodTipoInstruccion() {
+        return codTipoInstruccion;
+    }
+
+    public void setCodTipoInstruccion(Integer codTipoInstruccion) {
+        this.codTipoInstruccion = codTipoInstruccion;
+    }
+
+    public Integer getCodEjercicio() {
+        return codEjercicio;
+    }
+
+    public void setCodEjercicio(Integer codEjercicio) {
+        this.codEjercicio = codEjercicio;
+    }
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
