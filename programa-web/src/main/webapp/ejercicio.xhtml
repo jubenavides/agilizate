@@ -21,10 +21,11 @@
                     </p:selectOneMenu>
                     <p:outputLabel value="Opciones"></p:outputLabel>
                     <p:selectOneMenu id="opDificultad" value="#{ejercicioAdminBean.codDificultad}" rendered="#{ejercicioAdminBean.enBusquedaPorDificultad}">
-                        <f:selectItems var="dificultad" value="#{ejercicioAdminBean.dificultades}" itemLabel="#{dificultad.nombre}" itemValue="#{dificultad.codigo}" />
+                        <f:selectItems var="difi" value="#{ejercicioAdminBean.dificultades}" itemLabel="#{difi.nombre}" itemValue="#{difi.codigo}" />
+                        <p:ajax update="ejerciciosTbl" listener="#{ejercicioAdminBean.buscar()}"/>
                     </p:selectOneMenu>
                     <p:selectOneMenu id="opPasitiempo" value="#{ejercicioAdminBean.codPasatiempo}" rendered="#{ejercicioAdminBean.enBusquedaPorPasatiempo}">
-                        <f:selectItems var="pasatiempo" value="#{ejercicioAdminBean.pasatiempos}" itemLabel="#{pasatiempo.nombre}" itemValue="#{pasatiempo.codPasatiempo}" />
+                        <f:selectItems var="pas" value="#{ejercicioAdminBean.pasatiempos}" itemLabel="#{pas.nombre}" itemValue="#{pas.codPasatiempo}" />
                     </p:selectOneMenu>
                 </p:panel>
                 <p:dataTable id="ejerciciosTbl" var="ejercicio" value="#{ejercicioAdminBean.listadoEjercicios}" 
@@ -33,7 +34,6 @@
                     <p:ajax event="rowUnselect" update="ejerciciosTbl" />
                     <p:column headerText="Dificultad" sortBy="#{ejercicio.dificultad.nombre}">
                         <h:outputText value="#{ejercicio.dificultad.nombre}"/>
-                        
                     </p:column>
                     <p:column headerText="Pasatiempo" sortBy="#{ejercicio.pasatiempo.nombre}">
                         <h:outputText value="#{ejercicio.pasatiempo.nombre}"/>
@@ -48,14 +48,36 @@
                 <p:panel header="#{ejercicioAdminBean.titulo} Ejercicio" visible="#{ejercicioAdminBean.habilitaForm}">
                     <p:panelGrid columns="2">
                         <p:outputLabel for="codigo" value="Codigo" />
-                        <p:inputText id="codigo" value="#{pasatiempoBean.pasatiempo.codPasatiempo}" disabled="true" />
-                        <p:outputLabel for="nombre" value="Nombre" />
-                        <p:inputText id="nombre" value="#{pasatiempoBean.pasatiempo.nombre}"/>
+                        <p:inputText id="codigo" value="#{ejercicioAdminBean.ejercicio.codEjercicio}" disabled="true" />
+                        <p:outputLabel for="dificultad" value="Dificultad" />
+                        <p:selectOneMenu id="dificultad" value="#{ejercicioAdminBean.ejercicio.codDificultad}">
+                            <f:selectItems var="dificultad" value="#{ejercicioAdminBean.dificultades}" itemLabel="#{dificultad.nombre}" itemValue="#{dificultad.codigo}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel for="categoria" value="Categoria"/>
+                        <p:selectOneMenu id="categoria" value="#{ejercicioAdminBean.ejercicio.codCategoria}">
+                            <f:selectItems var="categoria" value="#{ejercicioAdminBean.categorias}" itemLabel="#{categoria.descripcion}" itemValue="#{categoria.codigo}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel for="genero" value="Genero"/>
+                        <p:selectOneMenu id="genero" value="#{ejercicioAdminBean.ejercicio.codGenero}">
+                            <f:selectItems var="genero" value="#{ejercicioAdminBean.generos}" itemLabel="#{genero.descripcion}" itemValue="#{genero.codigo}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel for="pasatiempo" value="Pasatiempo"/>
+                        <p:selectOneMenu id="pasatiempo" value="#{ejercicioAdminBean.ejercicio.codPasatiempo}">
+                            <f:selectItems var="pasatiempo" value="#{ejercicioAdminBean.pasatiempos}" itemLabel="#{pasatiempo.nombre}" itemValue="#{pasatiempo.codPasatiempo}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel for="material" value="Material"/>
+                        <p:selectOneMenu id="material" value="#{ejercicioAdminBean.ejercicio.codMaterial}">
+                            <f:selectItems var="material" value="#{ejercicioAdminBean.materiales}" itemLabel="#{material.descripcion}" itemValue="#{material.codigo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="tipCliente" value="Tipo de cliente"/>
+                        <p:selectOneMenu id="tipCliente" value="#{ejercicioAdminBean.ejercicio.codTipoCliente}">
+                            <f:selectItems var="tipCliente" value="#{ejercicioAdminBean.tipoClientes}" itemLabel="#{tipCliente.nombre}" itemValue="#{tipCliente.codigo}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel for="descripcion" value="Descripci&#243;n" />
-                        <p:inputTextarea id="descripcion" value="#{pasatiempoBean.pasatiempo.descripcion}" rows="2" cols="20" />
+                        <p:inputTextarea id="descripcion" value="#{ejercicioAdminBean.ejercicio.descripcion}" rows="2" cols="20" />
                     </p:panelGrid>
-                    <p:commandButton value="Aceptar" actionListener="#{pasatiempoBean.guardar}" update="@form" />
-                    <p:commandButton value="Cancelar" actionListener="#{pasatiempoBean.cancelar}" update="@form" />
+                    <p:commandButton value="Aceptar" actionListener="#{ejercicioAdminBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{ejercicioAdminBean.cancelar}" update="@form" />
                 </p:panel>
             </p:panel>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

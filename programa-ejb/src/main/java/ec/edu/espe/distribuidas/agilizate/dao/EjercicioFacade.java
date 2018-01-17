@@ -34,13 +34,14 @@ public class EjercicioFacade extends AbstractFacade<Ejercicio> {
     }
 
     public List<Ejercicio> findByDificultad(Integer codDificultad) {
-        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.dificultad=?1");
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codDificultad=?1");
+        System.out.println("-------------------------------"+qry);
         qry.setParameter(1, codDificultad);
         return qry.getResultList();
     }
 
     public List<Ejercicio> findByPasatiempo(Integer codDificultad) {
-        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.pasatiempo=?1");
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codPasatiempo?1");
         qry.setParameter(1, codDificultad);
         return qry.getResultList();
     }

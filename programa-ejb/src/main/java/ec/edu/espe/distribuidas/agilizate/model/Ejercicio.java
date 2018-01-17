@@ -7,9 +7,13 @@
  */
 package ec.edu.espe.distribuidas.agilizate.model;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodCategoriaEnum;
+import ec.edu.espe.distribuidas.agilizate.enums.CodGeneroEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,6 +35,27 @@ public class Ejercicio implements Serializable {
     
     @Column(name = "DESCRIPCION", nullable = false, length = 500)
     private String descripcion;
+    
+    @Column(name = "COD_PASATIEMPO", nullable = false)
+    private Integer codPasatiempo;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "COD_GENERO", nullable = false, length = 1)
+    private CodGeneroEnum codGenero;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "COD_CATEGORIA", nullable = false, length = 3)
+    private CodCategoriaEnum codCategoria;
+    
+    @Column(name = "COD_MATERIAL", nullable = false)
+    private Integer codMaterial;
+    
+    @Column(name = "COD_DIFICULTAD", nullable = false)
+    private Integer codDificultad;
+    
+    @Column(name = "COD_TIPO_CLIENTE", nullable = false)
+    private Integer codTipoCliente;
+
 
     @JoinColumn(name = "COD_PASATIEMPO", referencedColumnName = "COD_PASATIEMPO", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -124,6 +149,62 @@ public class Ejercicio implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Integer getCodPasatiempo() {
+        return codPasatiempo;
+    }
+
+    public void setCodPasatiempo(Integer codPasatiempo) {
+        this.codPasatiempo = codPasatiempo;
+    }
+
+    public CodGeneroEnum getCodGenero() {
+        return codGenero;
+    }
+
+    public void setCodGenero(CodGeneroEnum codGenero) {
+        this.codGenero = codGenero;
+    }
+
+    public CodCategoriaEnum getCodCategoria() {
+        return codCategoria;
+    }
+
+    public void setCodCategoria(CodCategoriaEnum codCategoria) {
+        this.codCategoria = codCategoria;
+    }
+
+    public Integer getCodMaterial() {
+        return codMaterial;
+    }
+
+    public void setCodMaterial(Integer codMaterial) {
+        this.codMaterial = codMaterial;
+    }
+
+    public Integer getCodDificultad() {
+        return codDificultad;
+    }
+
+    public void setCodDificultad(Integer codDificultad) {
+        this.codDificultad = codDificultad;
+    }
+
+    public Integer getCodTipoCliente() {
+        return codTipoCliente;
+    }
+
+    public void setCodTipoCliente(Integer codTipoCliente) {
+        this.codTipoCliente = codTipoCliente;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+     
     @Override
     public int hashCode() {
         int hash = 0;
@@ -146,7 +227,7 @@ public class Ejercicio implements Serializable {
 
     @Override
     public String toString() {
-        return "Ejercicio{" + "codEjercicio=" + codEjercicio + ", descripcion=" + descripcion + ", pasatiempo=" + pasatiempo + ", genero=" + genero + ", categoria=" + categoria + ", material=" + material + ", dificultad=" + dificultad + '}';
+        return "Ejercicio{" + "codEjercicio=" + codEjercicio + ", descripcion=" + descripcion + ", codPasatiempo=" + codPasatiempo + ", codGenero=" + codGenero + ", codCategoria=" + codCategoria + ", codMaterial=" + codMaterial + ", codDificultad=" + codDificultad + ", codTipoCliente=" + codTipoCliente + ", pasatiempo=" + pasatiempo + ", genero=" + genero + ", categoria=" + categoria + ", material=" + material + ", dificultad=" + dificultad + ", tipoCliente=" + tipoCliente + '}';
     }
     
 }

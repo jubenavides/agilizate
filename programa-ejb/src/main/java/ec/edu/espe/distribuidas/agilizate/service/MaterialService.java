@@ -29,6 +29,10 @@ public class MaterialService{
         return this.materialFacade.findAll();
     }
     
+    public Material obtenerPorCodigo(Integer codigo) {
+        return this.materialFacade.find(codigo);
+    }
+    
     public void crear(Material material) {
         this.materialFacade.create(material);
     }
