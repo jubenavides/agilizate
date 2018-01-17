@@ -61,10 +61,6 @@ public class ProgramaCliente implements Serializable {
     @Column(name = "TOTAL_DURACION")
     private Short totalDuracion;
 
-    @JoinColumn(name="COD_SEGUIMIENTO",referencedColumnName="COD_SEGUIMIENTO",nullable=false,insertable=false,updatable=false)
-    @ManyToOne(optional = false)
-    private Seguimiento seguimiento;
-    
     @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)
     @ManyToOne(optional = false)
     private Cliente cliente;
@@ -86,14 +82,6 @@ public class ProgramaCliente implements Serializable {
 
     public void setProgramaClientePK(ProgramaClientePK programaClientePK) {
         this.programaClientePK = programaClientePK;
-    }
-
-    public Seguimiento getSeguimiento() {
-        return seguimiento;
-    }
-
-    public void setSeguimiento(Seguimiento seguimiento) {
-        this.seguimiento = seguimiento;
     }
 
     public String getDescripcion() {
@@ -190,7 +178,8 @@ public class ProgramaCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ProgramaCliente{" + "programaClientePK=" + programaClientePK + ", descripcion=" + descripcion + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", ejercicioFisico=" + ejercicioFisico + ", ejercicioMental=" + ejercicioMental + ", ejercicioCombinado=" + ejercicioCombinado + ", estado=" + estado + ", totalDuracion=" + totalDuracion + ", seguimiento=" + seguimiento + ", cliente=" + cliente + '}';
+        return "ProgramaCliente{" + "programaClientePK=" + programaClientePK + ", descripcion=" + descripcion + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", ejercicioFisico=" + ejercicioFisico + ", ejercicioMental=" + ejercicioMental + ", ejercicioCombinado=" + ejercicioCombinado + ", estado=" + estado + ", totalDuracion=" + totalDuracion + ", cliente=" + cliente + '}';
     }
+
       
 }

@@ -12,6 +12,9 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,6 +31,12 @@ public class Seguimiento implements Serializable {
     @Column(name = "COD_SEGUIMIENTO", nullable = false)
     private Integer codigo;
     
+    @Column(name = "COD_PROGRAMA", nullable=false)
+    private int codPrograma;
+
+    @Column(name = "COD_CLIENTE", nullable=false)
+    private int codCliente;
+    
     @Column(name = "AVANCE", nullable = false)
     private Integer avance;
     
@@ -37,6 +46,12 @@ public class Seguimiento implements Serializable {
     @Column(name = "TOTAL_DURACION")
     private Integer totalDuracion;
 
+    @JoinColumns({
+        @JoinColumn(name="COD_PROGRAMA",referencedColumnName="COD_PROGRAMA",nullable=false,insertable=false,updatable=false),
+        @JoinColumn(name="COD_CLIENTE",referencedColumnName="COD_CLIENTE",nullable=false,insertable=false,updatable=false)})
+    @ManyToOne
+    private ProgramaCliente programaCliente;
+    
     public Seguimiento() {
     }
 
@@ -75,7 +90,15 @@ public class Seguimiento implements Serializable {
     public void setTotalDuracion(Integer totalDuracion) {
         this.totalDuracion = totalDuracion;
     }
+    
+    public ProgramaCliente getProgramaCliente() {
+        return programaCliente;
+    }
 
+    public void setProgramaCliente(ProgramaCliente programaCliente) {
+        this.programaCliente = programaCliente;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -101,9 +124,25 @@ public class Seguimiento implements Serializable {
         return true;
     }
 
+    public int getCodPrograma() {
+        return codPrograma;
+    }
+
+    public void setCodPrograma(int codPrograma) {
+        this.codPrograma = codPrograma;
+    }
+
+    public int getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(int codCliente) {
+        this.codCliente = codCliente;
+    }
+
     @Override
     public String toString() {
-        return "Seguimiento{" + "codigo=" + codigo + ", avance=" + avance + ", calificacionAplicacion=" + calificacionAplicacion + ", totalDuracion=" + totalDuracion + '}';
+        return "Seguimiento{" + "codigo=" + codigo + ", codPrograma=" + codPrograma + ", codCliente=" + codCliente + ", avance=" + avance + ", calificacionAplicacion=" + calificacionAplicacion + ", totalDuracion=" + totalDuracion + ", programaCliente=" + programaCliente + '}';
     }
-    
+
 }
