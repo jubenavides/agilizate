@@ -43,7 +43,6 @@ public class Cliente implements Serializable {
     @Column(name = "COD_PASATIEMPO", nullable = false)
     private Integer codPasatiempo;
     
-    
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
     

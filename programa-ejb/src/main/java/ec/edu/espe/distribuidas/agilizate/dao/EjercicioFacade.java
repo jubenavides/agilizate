@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.distribuidas.agilizate.dao;
 
+import ec.edu.espe.distribuidas.agilizate.enums.CodCategoriaEnum;
 import ec.edu.espe.distribuidas.agilizate.model.Ejercicio;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -35,14 +36,31 @@ public class EjercicioFacade extends AbstractFacade<Ejercicio> {
 
     public List<Ejercicio> findByDificultad(Integer codDificultad) {
         Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codDificultad=?1");
-        System.out.println("-------------------------------"+qry);
         qry.setParameter(1, codDificultad);
         return qry.getResultList();
     }
 
-    public List<Ejercicio> findByPasatiempo(Integer codDificultad) {
-        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codPasatiempo?1");
-        qry.setParameter(1, codDificultad);
+    public List<Ejercicio> findByPasatiempo(Integer codPasatiempo) {
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codPasatiempo=?1");
+        qry.setParameter(1, codPasatiempo);
+        return qry.getResultList();
+    }
+
+    public List<Ejercicio> findByTipCliente(Integer codTipoCliente) {
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codTipoCliente=?1");
+        qry.setParameter(1, codTipoCliente);
+        return qry.getResultList();
+    }
+
+    public List<Ejercicio> findByCategoria(CodCategoriaEnum codCategoria) {
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codCategoria=?1");
+        qry.setParameter(1, codCategoria);
+        return qry.getResultList();
+    }
+
+    public List<Ejercicio> findByMaterial(Integer codMaterial) {
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codMaterial=?1");
+        qry.setParameter(1, codMaterial);
         return qry.getResultList();
     }
 

@@ -110,10 +110,11 @@ public class ClienteBean extends BaseBean implements Serializable{
     }
 
     public void guardar() {
+        this.cliente.setTipoCliente(this.tipoClienteService.obtenerPorCodigo(this.cliente.getCodTipoCliente()));
+        this.cliente.setGenero(this.generoService.obtenerPorCodigo(this.cliente.getCodGenero()));
+        this.cliente.setPasatiempo(this.pasatiempoService.obtenerPorCodigo(this.cliente.getCodPasatiempo()));
         try {
             if (this.enAgregar) {
-                //this.cliente.setCodPasatiempo(this.codPasatiempo);
-                System.out.println("Pasatiempo ----"+this.codPasatiempo);
                 this.clienteService.crear(this.cliente);
                 FacesUtil.addMessageInfo("Se agreg\u00f3 el nuevo cliente: " + this.cliente.getNombre());
             } else {

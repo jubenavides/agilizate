@@ -33,6 +33,9 @@ public class Ejercicio implements Serializable {
     @Column(name = "COD_EJERCICIO", nullable = false)
     private Integer codEjercicio;
     
+    @Column(name = "NOMBRE", nullable = false, length = 30)
+    private String nombre;
+    
     @Column(name = "DESCRIPCION", nullable = false, length = 500)
     private String descripcion;
     
@@ -212,6 +215,14 @@ public class Ejercicio implements Serializable {
         return hash;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
