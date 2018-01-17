@@ -8,7 +8,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="contenido">
-            <p:panel id="mainPnl" header="Tipos de clientes" style="width: 50%; margin: auto;">
+            <p:panel id="mainPnl" header="Tipos de clientes" style="width: 70%; margin: auto;">
                 <p:dataTable var="material" value="#{materialBean.materiales}" 
                              selectionMode="single" selection="#{materialBean.materialSel}" rowKey="#{material.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
@@ -20,7 +20,7 @@
                         <h:outputText value="#{material.descripcion}" />
                     </p:column>
                     <p:column headerText="Imagen">
-                        <h:outputText value="#{material.imagen}" />
+                        <p:graphicImage value="#{material.imagen}" width="100" />
                     </p:column>
                 </p:dataTable>
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
