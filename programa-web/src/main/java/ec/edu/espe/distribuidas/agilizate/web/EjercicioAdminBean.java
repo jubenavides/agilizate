@@ -64,6 +64,9 @@ public class EjercicioAdminBean extends BaseBean implements Serializable{
     //Boolean para render
     private Boolean enBusquedaPorDificultad;
     private Boolean enBusquedaPorPasatiempo;
+    private Boolean enBusquedaPorTipoCliente;
+    private Boolean enBusquedaPorCategoria;
+    private Boolean enBusquedaPorMaterial;
     
     @Inject
     private EjercicioService ejercicioService;
@@ -85,7 +88,7 @@ public class EjercicioAdminBean extends BaseBean implements Serializable{
         this.filtro = "DIF";
         this.ejercicio = new Ejercicio();
         this.enBusquedaPorDificultad = true;
-        this.codDificultad=1;
+        this.ejercicios = this.ejercicioService.obtenerPorDificultad(this.dificultadService.obtenerTodos().get(0).getCodigo());
         this.dificultades = this.dificultadService.obtenerTodos();
         this.pasatiempos = this.pasatiempoService.obtenerTodos();
         this.tipoClientes = this.tipoClienteService.obtenerTodos();
@@ -97,19 +100,68 @@ public class EjercicioAdminBean extends BaseBean implements Serializable{
     public void cambiarFiltro() {
         switch(this.filtro){
             case "DIF":
-                this.enBusquedaPorPasatiempo = false;
+                this.ejercicios = this.ejercicioService.obtenerPorDificultad(this.dificultadService.obtenerTodos().get(0).getCodigo());
                 this.enBusquedaPorDificultad = true;
+                this.enBusquedaPorPasatiempo = false;
+                this.enBusquedaPorTipoCliente= false;
+                this.enBusquedaPorCategoria= false;
+                this.enBusquedaPorMaterial= false;
                 break;
             case "PAS":
+                this.ejercicios = this.ejercicioService.obtenerPorPasatiempo(this.pasatiempoService.obtenerTodos().get(0).getCodPasatiempo());
                 this.enBusquedaPorDificultad = false;
                 this.enBusquedaPorPasatiempo = true;
+                this.enBusquedaPorTipoCliente= false;
+                this.enBusquedaPorCategoria= false;
+                this.enBusquedaPorMaterial= false;
+                break;
+            case "TPC":
+                this.ejercicios = this.ejercicioService.obtenerTipoCliente(this.tipoClienteService.obtenerTodos().get(0).getCodigo());
+                this.enBusquedaPorDificultad = false;
+                this.enBusquedaPorPasatiempo = false;
+                this.enBusquedaPorTipoCliente= true;
+                this.enBusquedaPorCategoria= false;
+                this.enBusquedaPorMaterial= false;
+                break;
+            case "CAT":
+                this.ejercicios = this.ejercicioService.obtenerPorCategoria(this.categoriaService.obtenerTodos().get(0).getCodigo());
+                this.enBusquedaPorDificultad = false;
+                this.enBusquedaPorPasatiempo = false;
+                this.enBusquedaPorTipoCliente= false;
+                this.enBusquedaPorCategoria= true;
+                this.enBusquedaPorMaterial= false;
+                break;
+            case "MAT":
+                this.ejercicios = this.ejercicioService.obtenerPorMaterial(this.materialService.obtenerTodos().get(0).getCodigo());
+                this.enBusquedaPorDificultad = false;
+                this.enBusquedaPorPasatiempo = false;
+                this.enBusquedaPorTipoCliente= false;
+                this.enBusquedaPorCategoria= false;
+                this.enBusquedaPorMaterial= true;
                 break;
         }
     }
+
     
     public void buscar(){
-        System.out.println("-----"+this.codDificultad);
-        this.ejercicios = this.ejercicioService.obtenerPorDificultad(this.codDificultad);
+            switch(this.filtro){
+            case "DIF":
+                this.ejercicios = this.ejercicioService.obtenerPorDificultad(this.codDificultad);
+                break;
+            case "PAS":
+                this.ejercicios = this.ejercicioService.obtenerPorPasatiempo(this.codPasatiempo);
+                break;
+            case "TPC":
+                this.ejercicios = this.ejercicioService.obtenerTipoCliente(this.codTipoCliente);
+                break;
+            case "CAT":
+                this.ejercicios = this.ejercicioService.obtenerPorCategoria(this.codCategoria);
+                break;
+            case "MAT":
+                this.ejercicios = this.ejercicioService.obtenerPorMaterial(this.codMaterial);
+                break;
+        }
+
     }
     
    @Override
@@ -119,18 +171,56 @@ public class EjercicioAdminBean extends BaseBean implements Serializable{
         super.agregar();
     }
     
-     public void guardar() {     
+   @Override
+    public void modificar() {
+        super.modificar();
+        this.ejercicio = new Ejercicio();
+        this.ejercicio.setCodEjercicio(this.ejercicioSel.getCodEjercicio());
+        this.ejercicio.setCodCategoria(this.ejercicioSel.getCodCategoria());
+        this.ejercicio.setCodDificultad(this.ejercicioSel.getCodDificultad());
+        this.ejercicio.setCodGenero(this.ejercicioSel.getCodGenero());
+        this.ejercicio.setCodMaterial(this.ejercicioSel.getCodMaterial());
+        this.ejercicio.setCodTipoCliente(this.ejercicioSel.getCodTipoCliente());
+        this.ejercicio.setDescripcion(this.ejercicioSel.getDescripcion());
+        this.ejercicio.setCodPasatiempo(this.ejercicioSel.getCodPasatiempo());
+    }
+    
+    public void eliminar() {
+        try {
+            this.ejercicioService.eliminar(this.ejercicioSel.getCodEjercicio());
+            buscar();
+            FacesUtil.addMessageInfo("Se elimino el registro ");
+            this.ejercicioSel = null;
+        } catch (Exception e) {
+            FacesUtil.addMessageError(null, "No se puede eliminar el registro seleccionado. Verifique que no tenga informacion relacionada.");
+        }
+    }
+    
+    public void guardar() {     
         try {
             if (this.enAgregar) {
                 this.ejercicioService.crear(this.ejercicio);
-                FacesUtil.addMessageInfo("Se agreg\u00f3 un nuevo pasatiempo: ");
+                FacesUtil.addMessageInfo("Se agreg\u00f3 un nuevo ejercicio: "+this.ejercicio.getNombre());
             } else {
+                this.ejercicio.setCategoria(this.categoriaService.obtenerPorCodigo(this.ejercicio.getCodCategoria()));
+                this.ejercicio.setDificultad(this.dificultadService.obtenerPorCodigo(this.ejercicio.getCodDificultad()));
+                this.ejercicio.setGenero(this.generoService.obtenerPorCodigo(this.ejercicio.getCodGenero()));
+                this.ejercicio.setPasatiempo(this.pasatiempoService.obtenerPorCodigo(this.ejercicio.getCodPasatiempo()));
+                this.ejercicio.setTipoCliente(this.tipoClienteService.obtenerPorCodigo(this.ejercicio.getCodTipoCliente()));
+                this.ejercicio.setMaterial(this.materialService.obtenerPorCodigo(this.ejercicio.getCodMaterial()));
                 this.ejercicioService.modificar(this.ejercicio);
-                FacesUtil.addMessageInfo("Se modific\u00f3 el pasatiempo: ");
+                FacesUtil.addMessageInfo("Se modific\u00f3 el ejercicio: "+this.ejercicio.getNombre());
             }
         } catch (Exception ex) {
             FacesUtil.addMessageError(null, "Ocurri\u00f3 un error al actualizar la informaci\u00f3n");
         }
+        super.reset();
+        this.ejercicio = new Ejercicio();
+        this.ejercicios = null;
+        buscar();
+    }
+     
+        public void cancelar() {
         super.reset();
         this.ejercicio = new Ejercicio();
     }
@@ -271,12 +361,42 @@ public class EjercicioAdminBean extends BaseBean implements Serializable{
         this.enBusquedaPorPasatiempo = enBusquedaPorPasatiempo;
     }
 
+    public Boolean getEnBusquedaPorTipoCliente() {
+        return enBusquedaPorTipoCliente;
+    }
+
+    public void setEnBusquedaPorTipoCliente(Boolean enBusquedaPorTipoCliente) {
+        this.enBusquedaPorTipoCliente = enBusquedaPorTipoCliente;
+    }
+
+    public Boolean getEnBusquedaPorCategoria() {
+        return enBusquedaPorCategoria;
+    }
+
+    public void setEnBusquedaPorCategoria(Boolean enBusquedaPorCategoria) {
+        this.enBusquedaPorCategoria = enBusquedaPorCategoria;
+    }
+
+    public Boolean getEnBusquedaPorMaterial() {
+        return enBusquedaPorMaterial;
+    }
+
+    public void setEnBusquedaPorMaterial(Boolean enBusquedaPorMaterial) {
+        this.enBusquedaPorMaterial = enBusquedaPorMaterial;
+    }
+    
+    
+
     public Dificultad getDificultad() {
         return dificultad;
     }
 
     public void setDificultad(Dificultad dificultad) {
         this.dificultad = dificultad;
+    }
+
+    public List<Ejercicio> getEjercicios() {
+        return ejercicios;
     }
       
     
