@@ -6,6 +6,7 @@
 package ec.edu.espe.distribuidas.agilizate.dao;
 
 import ec.edu.espe.distribuidas.agilizate.enums.CodCategoriaEnum;
+import ec.edu.espe.distribuidas.agilizate.enums.CodGeneroEnum;
 import ec.edu.espe.distribuidas.agilizate.model.Ejercicio;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -61,6 +62,15 @@ public class EjercicioFacade extends AbstractFacade<Ejercicio> {
     public List<Ejercicio> findByMaterial(Integer codMaterial) {
         Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codMaterial=?1");
         qry.setParameter(1, codMaterial);
+        return qry.getResultList();
+    }
+    
+    public List<Ejercicio> findByGTcPD(CodGeneroEnum codGenero,Integer codTipoCliente, Integer codPasatiempo, Integer codDificultad){
+        Query qry = this.em.createQuery("SELECT obj FROM Ejercicio obj WHERE obj.codGenero=?1 AND obj.codTipoCliente=?2 AND obj.codPasatiempo=?3 AND obj.codDificultad=?4");
+        qry.setParameter(1, codGenero);    
+        qry.setParameter(2, codTipoCliente);
+        qry.setParameter(3, codPasatiempo);
+        qry.setParameter(4, codDificultad);
         return qry.getResultList();
     }
 

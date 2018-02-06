@@ -9,6 +9,7 @@ package ec.edu.espe.distribuidas.agilizate.service;
 
 import ec.edu.espe.distribuidas.agilizate.dao.EjercicioFacade;
 import ec.edu.espe.distribuidas.agilizate.enums.CodCategoriaEnum;
+import ec.edu.espe.distribuidas.agilizate.enums.CodGeneroEnum;
 import ec.edu.espe.distribuidas.agilizate.model.Ejercicio;
 import java.util.List;
 import javax.ejb.EJB;
@@ -65,6 +66,10 @@ public class EjercicioService{
     
     public List<Ejercicio> obtenerPorMaterial(Integer codMaterial) {
         return this.ejercicioFacade.findByMaterial(codMaterial);
+    }
+    
+    public List<Ejercicio> obtenerPorGTcPD(CodGeneroEnum codGenero,Integer codTipoCliente, Integer codPasatiempo, Integer codDificultad) {
+        return this.ejercicioFacade.findByGTcPD(codGenero,codTipoCliente, codPasatiempo, codDificultad);
     }
     
 }

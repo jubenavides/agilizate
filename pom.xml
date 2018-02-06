@@ -8,7 +8,6 @@
     <name>programa</name>
     <modules>
         <module>programa-ear</module>
-        <module>programa-web</module>
         <module>programa-ejb</module>
     </modules>
     <properties>

@@ -28,7 +28,7 @@ public class Material implements Serializable {
     @Column(name = "COD_MATERIAL", nullable = false)
     private Integer codigo;
 
-    @Column(name = "DESCRIPCION", nullable = false, length = 100)
+    @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
 
     @Column(name = "IMAGEN", length = 200)

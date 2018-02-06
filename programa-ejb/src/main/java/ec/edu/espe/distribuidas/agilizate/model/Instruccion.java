@@ -36,7 +36,7 @@ public class Instruccion implements Serializable {
     @Column(name = "COD_EJERCICIO", nullable = false)
     private Integer codEjercicio;
     
-    @Column(name = "RECURSO", nullable = false, length = 200)
+    @Column(name = "RECURSO", nullable = false, length = 500)
     private String recurso;
 
     @JoinColumn(name = "COD_TIPO_INSTRUCCION", referencedColumnName = "COD_TIPO_INSTRUCCION", nullable = false, insertable = false, updatable = false)
